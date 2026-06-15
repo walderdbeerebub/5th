@@ -118,9 +118,9 @@
 
 HAPPY 5TH ANNIVERSARY!!!!
 
-Half a decade already, wow...
+Half a decade already, wow... 😳
 
-Thank you for being the most patient, the most understanding, and the sweetest man!
+Thank you for being the most patient, the most understanding, the most generous, the pogiest, and the sweetest man!
 
 That's my MANS!
 
@@ -175,15 +175,31 @@ If you click NO, you're dead. >:( `;
       }, 45);
     }
 
-    function sayYes() {
-      document.getElementById("answer").innerHTML =
-        "Yay! You made my hamster heart happy 🐹💖";
-    }
+   function sayYes() {
+  document.getElementById("answer").innerHTML =
+    "Yay! You made my hamster heart happy 🐹💖";
 
-    function sayOfCourse() {
-      document.getElementById("answer").innerHTML =
-        "Aaaaa I knew it 😭💕 Happy anniversary!";
-    }
+  for (let i = 0; i < 40; i++) {
+    createHeart();
+  }
+
+  document.getElementById("answer").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+ function sayOfCourse() {
+  document.getElementById("answer").innerHTML =
+    "Aaaaa I knew it 😭💕 Happy anniversary!";
+
+  for (let i = 0; i < 60; i++) {
+    createHeart();
+  }
+
+  document.getElementById("answer").scrollIntoView({
+    behavior: "smooth"
+  });
+}
 
     function moveNo() {
       const btn = document.getElementById("noBtn");
