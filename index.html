@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>For You 🐹💌</title>
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(#ffd6e8, #fff0f6);
+      font-family: Georgia, serif;
+      text-align: center;
+      overflow-x: hidden;
+      color: #6b3b3b;
+    }
+
+    h1 { margin-top: 35px; font-size: 42px; }
+
+    #hint { font-size: 22px; }
+
+    #egg, #hamster {
+      width: 280px;
+      max-width: 80%;
+      cursor: pointer;
+    }
+
+    #hamster {
+      display: none;
+      animation: popIn 0.8s ease;
+    }
+
+    .shake { animation: shake 0.35s; }
+
+    @keyframes shake {
+      0% { transform: rotate(0deg); }
+      25% { transform: rotate(6deg); }
+      50% { transform: rotate(-6deg); }
+      75% { transform: rotate(6deg); }
+      100% { transform: rotate(0deg); }
+    }
+
+    @keyframes popIn {
+      from { transform: scale(0.3); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .letter {
+      display: none;
+      max-width: 700px;
+      margin: 25px auto;
+      padding: 25px;
+      font-size: 26px;
+      line-height: 1.6;
+      color: #c2185b;
+      font-weight: bold;
+    }
+
+    button {
+      background: hotpink;
+      color: white;
+      border: none;
+      padding: 13px 22px;
+      border-radius: 25px;
+      margin: 8px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    button:hover { transform: scale(1.08); }
+
+    #answer {
+      font-size: 28px;
+      color: #6b3b3b;
+      margin: 25px;
+      font-weight: bold;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -20px;
+      font-size: 24px;
+      animation: floatUp 5s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      to {
+        transform: translateY(-110vh);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Something is inside... 🥚</h1>
+  <p id="hint">Tap the egg 3 times!</p>
+
+  <img id="egg" src="egg.png" onclick="tapEgg()">
+  <img id="hamster" src="hamster.png" onclick="startLetter()">
+
+  <div class="letter" id="letter"></div>
+
+  <div id="choices" style="display:none;">
+    <h2>Will you accept this little letter? 💖</h2>
+    <button onclick="sayYes()">Yes 💖</button>
+    <button onclick="sayOfCourse()">Of course 😭</button>
+    <button id="noBtn" onmouseover="moveNo()" onclick="moveNo()">No 😔</button>
+  </div>
+
+  <div id="answer"></div>
+
+  <script>
+    let taps = 0;
+    let heartTimer;
+
+    const message = `Dear Mr. Ugg,
+
+HAPPY 5TH ANNIVERSARY!!!!
+
+Half a decade already, wow...
+
+Thank you for being the most patient and sweetest man!
+
+That's my MANS!
+
+Can't wait to see the Ugg again.. T___T
+
+I miss and love you!
+
+Your paulit-ulit womans,
+The Bub 💖`;
+
+    function tapEgg() {
+      taps++;
+
+      const egg = document.getElementById("egg");
+      const hint = document.getElementById("hint");
+
+      egg.classList.remove("shake");
+      void egg.offsetWidth;
+      egg.classList.add("shake");
+
+      if (taps === 1) hint.innerHTML = "Hmm... something moved 🐹";
+      if (taps === 2) hint.innerHTML = "It’s cracking!! 💥";
+      if (taps >= 3) hatch();
+    }
+
+    function hatch() {
+      document.getElementById("hint").innerHTML = "Ta-da! Click the hamster 💌";
+      document.getElementById("egg").style.display = "none";
+      document.getElementById("hamster").style.display = "inline-block";
+      startHearts();
+    }
+
+    function startLetter() {
+      document.getElementById("hint").innerHTML = "The hamster is writing...";
+      const letter = document.getElementById("letter");
+      letter.style.display = "block";
+      letter.innerHTML = "";
+
+      let i = 0;
+      const typing = setInterval(() => {
+        letter.innerHTML += message[i] === "\n" ? "<br>" : message[i];
+        i++;
+
+        if (i >= message.length) {
+          clearInterval(typing);
+          document.getElementById("choices").style.display = "block";
+          document.getElementById("hint").innerHTML = "Message delivered 🐹💌";
+        }
+      }, 45);
+    }
+
+    function sayYes() {
+      document.getElementById("answer").innerHTML =
+        "Yay! You made my hamster heart happy 🐹💖";
+    }
+
+    function sayOfCourse() {
+      document.getElementById("answer").innerHTML =
+        "Aaaaa I knew it 😭💕 Happy anniversary!";
+    }
+
+    function moveNo() {
+      const btn = document.getElementById("noBtn");
+      btn.style.position = "fixed";
+      btn.style.left = Math.random() * 70 + "vw";
+      btn.style.top = Math.random() * 70 + "vh";
+    }
+
+    function startHearts() {
+      if (heartTimer) return;
+      heartTimer = setInterval(createHeart, 300);
+    }
+
+    function createHeart() {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.innerHTML = ["💖", "💕", "💗", "🐹"][Math.floor(Math.random() * 4)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.fontSize = Math.random() * 22 + 18 + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 5000);
+    }
+  </script>
+
+</body>
+</html>
